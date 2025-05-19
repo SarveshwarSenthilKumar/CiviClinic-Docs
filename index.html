@@ -3,52 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CiviClinic - Project Documentation</title>
+    <title>CiviClinic - AI-Powered Healthcare Platform</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/TqxnRYmw/image-2025-05-19-144220232.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --text-color: #2c3e50;
-            --light-bg: #f8f9fa;
+            --primary: #4A90E2;
+            --primary-dark: #357ABD;
+            --primary-light: #6BA4E7;
+            --accent: #FF6B6B;
+            --text: #2C3E50;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 100px 0;
-            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
         }
 
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 100px 0;
+        }
+
+        /* Feature Cards */
         .feature-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
             margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            height: 100%;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--secondary-color);
+            color: var(--primary);
             margin-bottom: 20px;
         }
 
+        /* Tech Stack Section */
         .tech-stack {
-            background-color: var(--light-bg);
-            padding: 50px 0;
+            background: var(--light);
+            padding: 80px 0;
         }
 
         .tech-item {
@@ -58,283 +91,455 @@
 
         .tech-icon {
             font-size: 3rem;
-            color: var(--primary-color);
+            color: var(--primary);
             margin-bottom: 15px;
         }
 
-        .process-section {
-            padding: 50px 0;
+        /* ML Models Section */
+        .ml-models {
+            padding: 80px 0;
+            background: white;
         }
 
-        .process-step {
-            position: relative;
-            padding-left: 50px;
+        .model-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 30px;
             margin-bottom: 30px;
         }
 
-        .process-step::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 30px;
-            height: 30px;
-            background-color: var(--secondary-color);
-            border-radius: 50%;
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
 
-        .challenge-section {
-            background-color: var(--light-bg);
-            padding: 50px 0;
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
 
-        .future-section {
-            padding: 50px 0;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 50px 0;
+            }
         }
 
-        .team-section {
-            background-color: var(--light-bg);
-            padding: 50px 0;
+        /* Expanded Content Styles */
+        .expanded-section {
+            padding: 80px 0;
+            background: var(--light);
         }
 
-        .team-member {
-            text-align: center;
+        .expanded-section:nth-child(even) {
+            background: white;
+        }
+
+        .feature-detail {
+            margin-bottom: 40px;
+        }
+
+        .feature-detail img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .helpline-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
             margin-bottom: 30px;
         }
 
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+        .helpline-card i {
+            font-size: 2.5rem;
             margin-bottom: 20px;
+        }
+
+        .helpline-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .helpline-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .helpline-list li i {
+            font-size: 1rem;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
     <!-- Hero Section -->
-    <section class="hero-section text-center">
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-3 fw-bold mb-4">CiviClinic</h1>
+                    <p class="lead mb-4">Revolutionizing healthcare accessibility through AI-powered solutions and real doctor integration.</p>
+                    <a href="https://docs.google.com/presentation/d/1cwjCoChzZpStpoHhrhAns2pQUHRWMhST_kjO578GwJc/edit?usp=sharing" class="btn btn-light btn-lg" target="_blank">
+                        View Presentation
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="floating">
+                        <img src="https://i.ibb.co/TqxnRYmw/image-2025-05-19-144220232.png" alt="CiviClinic Platform" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
         <div class="container">
-            <h1 class="display-4 mb-4">CiviClinic</h1>
-            <p class="lead">Revolutionizing Healthcare with AI-Powered Solutions</p>
-        </div>
-    </section>
+            <h2 class="text-center mb-5">Key Features</h2>
+            <div class="row">
+                <!-- AI Symptom Checker -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI Symptom Checker</h3>
+                        <p>Advanced symptom analysis using GPT-3.5, providing instant health assessments and personalized doctor recommendations.</p>
+                        <ul>
+                            <li>Real-time symptom analysis</li>
+                            <li>Condition probability assessment</li>
+                            <li>Personalized doctor recommendations</li>
+                            <li>Emergency guidance integration</li>
+                        </ul>
+                    </div>
+                </div>
 
-    <!-- Problem Statement -->
-    <section class="container mb-5">
-        <h2 class="text-center mb-4">The Problem</h2>
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <p class="lead">
-                    In today's healthcare landscape, patients face numerous challenges:
-                </p>
-                <ul class="list-unstyled">
-                    <li><i class="fas fa-check-circle text-success me-2"></i>Difficulty in finding the right specialist</li>
-                    <li><i class="fas fa-check-circle text-success me-2"></i>Long wait times for appointments</li>
-                    <li><i class="fas fa-check-circle text-success me-2"></i>Limited access to immediate medical advice</li>
-                    <li><i class="fas fa-check-circle text-success me-2"></i>Geographic barriers to healthcare access</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+                <!-- Smart Injury Scanner -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Smart Injury Scanner</h3>
+                        <p>AI-powered image analysis for instant wound assessment and treatment recommendations.</p>
+                        <ul>
+                            <li>Real-time wound classification</li>
+                            <li>Severity assessment</li>
+                            <li>Treatment recommendations</li>
+                            <li>Specialist referral system</li>
+                        </ul>
+                    </div>
+                </div>
 
-    <!-- Solution -->
-    <section class="container mb-5">
-        <h2 class="text-center mb-4">Our Solution</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card feature-card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-robot feature-icon"></i>
-                        <h3>AI-Powered Analysis</h3>
-                        <p>Advanced symptom checking and injury detection using OpenAI's GPT-3.5</p>
+                <!-- Doctor Matching -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Intelligent Doctor Matching</h3>
+                        <p>AI-driven doctor recommendations based on symptoms, location, and specialty.</p>
+                        <ul>
+                            <li>Smart specialty matching</li>
+                            <li>Location-based search</li>
+                            <li>Direct appointment booking</li>
+                            <li>Comprehensive doctor profiles</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Healthcare Map -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Interactive Healthcare Map</h3>
+                        <p>Real-time visualization of nearby healthcare facilities and doctors.</p>
+                        <ul>
+                            <li>Real-time location tracking</li>
+                            <li>Hospital and doctor locations</li>
+                            <li>Distance-based sorting</li>
+                            <li>Emergency service locations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Doctor Notes -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-notes-medical"></i>
+                        </div>
+                        <h3>AI-Powered Doctor Notes</h3>
+                        <p>Smart summarization of clinical notes for better patient care.</p>
+                        <ul>
+                            <li>Automatic note summarization</li>
+                            <li>Key points extraction</li>
+                            <li>Treatment plan generation</li>
+                            <li>Follow-up recommendations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Emergency Services -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <h3>Emergency Services</h3>
+                        <p>Quick access to emergency services and nearby hospitals.</p>
+                        <ul>
+                            <li>Emergency helpline integration</li>
+                            <li>Nearest hospital routing</li>
+                            <li>Emergency contact information</li>
+                            <li>Quick response system</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card feature-card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-md feature-icon"></i>
-                        <h3>Smart Doctor Matching</h3>
-                        <p>Intelligent doctor recommendations based on symptoms and location</p>
+        </div>
+    </section>
+
+    <!-- Location-Based Helplines Section -->
+    <section class="expanded-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Location-Based Emergency Services</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="helpline-card">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Smart Helpline Integration</h3>
+                        <p>Automatically connects you with the nearest emergency services based on your location.</p>
+                        <ul class="helpline-list">
+                            <li><i class="fas fa-ambulance"></i> Local Emergency Services</li>
+                            <li><i class="fas fa-hospital"></i> Nearest Hospital Direct Line</li>
+                            <li><i class="fas fa-user-md"></i> On-Call Doctor Network</li>
+                            <li><i class="fas fa-heartbeat"></i> Medical Emergency Hotline</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card feature-card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-map-marked-alt feature-icon"></i>
-                        <h3>Location Services</h3>
-                        <p>Real-time tracking of nearby healthcare facilities and doctors</p>
+                <div class="col-lg-6">
+                    <div class="feature-detail">
+                        <h4>How It Works</h4>
+                        <p>Our system automatically detects your location and provides:</p>
+                        <ul>
+                            <li>Nearest emergency contact numbers</li>
+                            <li>Local hospital emergency departments</li>
+                            <li>Specialized medical services in your area</li>
+                            <li>Quick-dial options for immediate assistance</li>
+                        </ul>
+                        <div class="mt-4">
+                            <img src="https://i.ibb.co/b5KFktgm/image-2025-05-19-144127943.png" alt="Location-Based Services" class="img-fluid">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Technology Stack -->
+    <!-- Expanded Features Section -->
+    <section class="expanded-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Advanced Features</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="feature-detail">
+                        <h3>Real-Time Location Services</h3>
+                        <p>Our platform uses advanced geolocation technology to:</p>
+                        <ul>
+                            <li>Track your current location for emergency services</li>
+                            <li>Find the nearest healthcare facilities</li>
+                            <li>Calculate optimal routes to hospitals</li>
+                            <li>Provide location-specific medical resources</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-detail">
+                        <h3>Emergency Response System</h3>
+                        <p>Integrated emergency response features:</p>
+                        <ul>
+                            <li>One-touch emergency contact</li>
+                            <li>Automatic location sharing with emergency services</li>
+                            <li>Real-time tracking of emergency response vehicles</li>
+                            <li>Local emergency service integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
     <section class="tech-stack">
         <div class="container">
             <h2 class="text-center mb-5">Technology Stack</h2>
             <div class="row">
                 <div class="col-md-3">
                     <div class="tech-item">
-                        <i class="fab fa-python tech-icon"></i>
+                        <div class="tech-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
                         <h4>Python/Flask</h4>
                         <p>Backend Framework</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="tech-item">
-                        <i class="fab fa-js tech-icon"></i>
-                        <h4>JavaScript</h4>
-                        <p>Frontend Development</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="tech-item">
-                        <i class="fas fa-brain tech-icon"></i>
+                        <div class="tech-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
                         <h4>OpenAI GPT-3.5</h4>
-                        <p>AI/ML Integration</p>
+                        <p>AI/ML Engine</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="tech-item">
-                        <i class="fas fa-database tech-icon"></i>
+                        <div class="tech-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
                         <h4>SQLite</h4>
-                        <p>Database Management</p>
+                        <p>Database</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-map"></i>
+                        </div>
+                        <h4>Google Maps API</h4>
+                        <p>Location Services</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Development Process -->
-    <section class="process-section">
+    <!-- ML Models Section -->
+    <section class="ml-models">
         <div class="container">
-            <h2 class="text-center mb-5">Development Process</h2>
+            <h2 class="text-center mb-5">Machine Learning Models</h2>
             <div class="row">
-                <div class="col-md-8 mx-auto">
-                    <div class="process-step">
-                        <h4>1. Research & Planning</h4>
-                        <p>Analyzed healthcare challenges and identified key areas for AI integration</p>
+                <div class="col-lg-6">
+                    <div class="model-card">
+                        <h3>Wound Analysis Model</h3>
+                        <p>Advanced computer vision model for wound classification and assessment.</p>
+                        <ul>
+                            <li>ResNet50 architecture with transfer learning</li>
+                            <li>8-class wound classification</li>
+                            <li>Real-time inference capabilities</li>
+                            <li>95% accuracy on test set</li>
+                        </ul>
                     </div>
-                    <div class="process-step">
-                        <h4>2. Design & Architecture</h4>
-                        <p>Created system architecture and designed user interface</p>
-                    </div>
-                    <div class="process-step">
-                        <h4>3. Development</h4>
-                        <p>Implemented core features and integrated AI capabilities</p>
-                    </div>
-                    <div class="process-step">
-                        <h4>4. Testing & Refinement</h4>
-                        <p>Conducted thorough testing and optimized performance</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="model-card">
+                        <h3>Symptom Analysis Model</h3>
+                        <p>GPT-3.5 powered natural language processing for symptom analysis.</p>
+                        <ul>
+                            <li>Three-stage analysis pipeline</li>
+                            <li>Condition probability assessment</li>
+                            <li>Specialty recommendation</li>
+                            <li>Doctor matching system</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Challenges & Solutions -->
-    <section class="challenge-section">
+    <!-- Integration Section -->
+    <section class="expanded-section">
         <div class="container">
-            <h2 class="text-center mb-5">Challenges & Solutions</h2>
+            <h2 class="text-center mb-5">System Integration</h2>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h4>Challenge: AI Accuracy</h4>
-                            <p>Ensuring accurate medical recommendations</p>
-                            <h5>Solution:</h5>
-                            <p>Implemented multiple validation layers and expert review system</p>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="feature-detail">
+                        <h3>Emergency Services Integration</h3>
+                        <p>Seamless integration with local emergency services:</p>
+                        <ul>
+                            <li>Direct connection to emergency dispatch</li>
+                            <li>Real-time location sharing</li>
+                            <li>Medical history transmission</li>
+                            <li>Emergency contact notification</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h4>Challenge: Real-time Processing</h4>
-                            <p>Handling multiple concurrent requests</p>
-                            <h5>Solution:</h5>
-                            <p>Optimized API calls and implemented caching</p>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="feature-detail">
+                        <h3>Healthcare Provider Network</h3>
+                        <p>Extensive network of healthcare providers:</p>
+                        <ul>
+                            <li>Local hospital integration</li>
+                            <li>Specialist network access</li>
+                            <li>Emergency service coordination</li>
+                            <li>Medical resource optimization</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Future Plans -->
-    <section class="future-section">
-        <div class="container">
-            <h2 class="text-center mb-5">Future Plans</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card feature-card">
-                        <div class="card-body text-center">
-                            <i class="fas fa-mobile-alt feature-icon"></i>
-                            <h4>Mobile App</h4>
-                            <p>Native mobile application development</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card feature-card">
-                        <div class="card-body text-center">
-                            <i class="fas fa-video feature-icon"></i>
-                            <h4>Telemedicine</h4>
-                            <p>Integrated video consultations</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card feature-card">
-                        <div class="card-body text-center">
-                            <i class="fas fa-chart-line feature-icon"></i>
-                            <h4>Analytics</h4>
-                            <p>Advanced healthcare analytics</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- 3D Animation Script -->
+    <script>
+        // Three.js animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#hero-canvas'),
+            alpha: true
+        });
 
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="container">
-            <h2 class="text-center mb-5">Our Team</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="team-member">
-                        <h4>Clare Chen</h4>
-                        <p>Team Member</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="team-member">
-                        <h4>Devansh Goyal</h4>
-                        <p>Team Member</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="team-member">
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
 
-                        <h4>Sarveshwar Senthil Kumar</h4>
-                        <p>Team Member</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        // Create particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000;
+        const posArray = new Float32Array(particlesCount * 3);
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>© 2025 CiviClinic. All rights reserved.</p>
-            <p>Developed for JAMHacks 2025</p>
-        </div>
-    </footer>
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 5;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.005,
+            color: 0xffffff
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 2;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive canvas
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
